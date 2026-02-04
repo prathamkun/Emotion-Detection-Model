@@ -49,19 +49,7 @@ Emotion-Detection-Model/
 │── README.md
 │── .gitignore
 ```
----
 
-> ⚠️ `data/` folder is ignored in GitHub because it is large.
-
----
-
-## ⚙️ Setup & Installation (Mac / Linux)
-
-### 1️⃣ Clone the repository
-```bash
-git clone <your-repo-url>
-cd Emotion-Detection-Model
-```
 
 ---
 
@@ -88,3 +76,4 @@ Web UI for uploading image/webcam
 Deploy full app (Render/Railway)
 
 Better model using Transfer Learning (MobileNet/EfficientNet)
+
