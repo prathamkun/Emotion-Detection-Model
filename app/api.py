@@ -5,7 +5,13 @@ import numpy as np
 import tensorflow as tf
 import json
 
-app = Flask(__name__)
+from flask import Blueprint, request, jsonify
+import cv2
+import numpy as np
+import tensorflow as tf
+import json
+
+api_bp = Blueprint("api", __name__)
 
 MODEL_PATH = "models/emotion_model.h5"
 LABELS_PATH = "models/label_map.json"
@@ -26,7 +32,7 @@ face_cascade = cv2.CascadeClassifier(
 )
 
 
-@app.route("/predict", methods=["POST"])
+@api_bp.route("/predict", methods=["POST"])
 def predict():
 
     file = request.files["image"]
@@ -57,5 +63,4 @@ def predict():
     return jsonify(results)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
