@@ -1,11 +1,14 @@
-<h1>Emotion Detection Dashboard</h1>
+{% extends "base.html" %}
 
-<a href="/logout">Logout</a>
+{% block content %}
 
-<form action="/predict" method="post" enctype="multipart/form-data">
+<div class="container">
+    <h2>Upload Image</h2>
 
-<input type="file" name="image">
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Predict Emotion</button>
+    </form>
+</div>
 
-<button>Predict Emotion</button>
-
-</form>
+{% endblock %}
