@@ -1,11 +1,4 @@
-from flask import render_template, redirect, url_for, session
-from flask import Flask, request, jsonify
-import cv2
-import numpy as np
-import tensorflow as tf
-import json
-
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, session
 import cv2
 import numpy as np
 import tensorflow as tf
@@ -17,7 +10,7 @@ MODEL_PATH = "models/emotion_model.h5"
 LABELS_PATH = "models/label_map.json"
 IMG_SIZE = 48
 
-# Load model
+# Load model once
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # Load labels
@@ -34,6 +27,9 @@ face_cascade = cv2.CascadeClassifier(
 
 @api_bp.route("/predict", methods=["POST"])
 def predict():
+
+    if "image" not in request.files:
+        return jsonify({"error": "No image uploaded"}), 400
 
     file = request.files["image"]
 
@@ -60,7 +56,19 @@ def predict():
             "confidence": float(preds[emotion_index])
         })
 
+    # 🔥 IMPORTANT — This must be inside function
+    if "user" in session:
+        if len(results) > 0:
+            return render_template(
+                "result.html",
+                emotion=results[0]["emotion"],
+                confidence=round(results[0]["confidence"] * 100, 2)
+            )
+        else:
+            return render_template(
+                "result.html",
+                emotion="No Face Detected",
+                confidence=0
+            )
+
     return jsonify(results)
-
-
-
