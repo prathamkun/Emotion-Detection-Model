@@ -8,3 +8,7 @@ env/
 
 data/
 models/*.h5
+.venv
+__pycache__
+*.pyc
+.env
