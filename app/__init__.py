@@ -1,11 +1,17 @@
 from flask import Flask
+from .models import db
 
 def create_app():
 
     app = Flask(__name__)
+
     app.config["SECRET_KEY"] = "supersecretkey"
 
-    # Import and register routes
+    # SQLite database file
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+
+    db.init_app(app)
+
     from .routes import main
     from .auth import auth
     from .api import api_bp
