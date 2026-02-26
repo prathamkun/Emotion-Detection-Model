@@ -57,7 +57,7 @@ def predict():
         })
 
     # 🔥 IMPORTANT — This must be inside function
-    if True:
+    if "user" in session:
         if len(results) > 0:
             return render_template(
                 "result.html",
